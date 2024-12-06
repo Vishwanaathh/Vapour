@@ -13,7 +13,7 @@ conn=mysql.connector.connect(
     port=3306,
     user='root',
     password='',
-    database='vapour'
+    database='vapourr'
 )
 cursor=conn.cursor()
 @app.route("/image/<name>")
@@ -57,7 +57,7 @@ def login():
     credentials=request.get_json()
     name=credentials.get("username")
     passwd=credentials.get("password")
-    cursor.execute("SELECT * FROM users WHERE Username=(%s)",(name,))
+    cursor.execute("SELECT Username,Password FROM users WHERE Username=(%s)",(name,))
     data=cursor.fetchall()
     if(passwd==data[0][1]):
         access=create_access_token(identity=name)
@@ -91,6 +91,24 @@ def genre(idd):
     cursor.execute("SELECT Name,Price,Genre,Discount From game WHERE Genre=(%s)",(idd,))
     data=cursor.fetchall()
     return jsonify(data)
+@app.route("/user")
+def nouser():
+    return "No such user"
+@app.route("/user/<uname>")
+def getUser(uname):
+    cursor.execute("SELECT Username,Password,`No of games`,Wishlist FROM users WHERE Username=(%s)",(uname,))
+    data=cursor.fetchone()
+    return jsonify(data)
+@app.route("/user/image/<namee>")
+def getNameImage(namee):
+    cursor.execute("SELECT Image from users WHERE Username=(%s)",(namee,))
+    data=cursor.fetchone()
+    dara=io.BytesIO(data[0])
+    if(dara and data):
+        return send_file(dara,mimetype='image/jpeg',as_attachment=False)
+    else:
+        return send_file("./pfp.jpg",mimetype='image/jpeg',as_attachment=False)
+
 
 if(__name__=="__main__"):
     app.run(debug=True)
