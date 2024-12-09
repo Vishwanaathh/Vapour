@@ -3,6 +3,7 @@ import HNav from '@/app/components/homenav';
 import jwt_decode from 'jwt-decode'; 
 import { useEffect, useState } from 'react';
 import Icon from '@/app/components/icon';
+import {useRouter} from "next/navigation";
 
 export default function Home() {
     const [username, setUsername] = useState('');
@@ -10,6 +11,7 @@ export default function Home() {
     const [toggle,setToggle]=useState(true);
     const [byg,setByg]=useState([]);
     const [genre,setGenre]=useState("");
+    const router=useRouter();
 
     const getdata = async () => {
         const token = localStorage.getItem("token");
@@ -118,7 +120,7 @@ export default function Home() {
                 }
             </ul>
             <div>{!toggle&&<button className="bg-green-700 text-white w-24 h-10" onClick={()=>setToggle(!toggle)}>GO BACK</button>}</div>
-
+            <button onClick={()=>{router.push("/profile")} }className="text-white bg-green-700 w-24 h-12 mt-16 ">Go to Profile</button>
             <p>Parashuram Production 2024</p>
         </div>
     );

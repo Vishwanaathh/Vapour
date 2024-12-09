@@ -28,9 +28,9 @@ export default function signin(){
     })
     if (response.ok) {
       const data = await response.json();
-      localStorage.setItem('token', data.access_token); // Save JWT token
+      localStorage.setItem('token', data.access_token);
       setError('');
-      router.push('/login'); // Use `router.push` from `next/navigation`
+      router.push('/login');
   } else {
       const errorData = await response.json();
       setError(errorData.message || 'Invalid credentials');

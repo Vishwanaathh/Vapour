@@ -31,8 +31,10 @@ export default function Login() {
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('token', data.access_token); // Save JWT token
+                localStorage.setItem('username',username);
+
                 setError('');
-                router.push('/home'); // Use `router.push` from `next/navigation`
+                router.push('/profile'); // Use `router.push` from `next/navigation`
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || 'Invalid credentials');

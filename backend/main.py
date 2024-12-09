@@ -108,7 +108,19 @@ def getNameImage(namee):
         return send_file(dara,mimetype='image/jpeg',as_attachment=False)
     else:
         return send_file("./pfp.jpg",mimetype='image/jpeg',as_attachment=False)
-
+@app.route("/friend/getDetails/<nameee>")
+def details(nameee):
+    cursor.execute("SELECT `Friend Name`,`Friend Rating` FROM friends WHERE Name=(%s)",(nameee,))
+    data=cursor.fetchall()
+    return jsonify(data)
+@app.route("/friend/enterDetails/<nameee>",methods=["POST"])
+def insertFriend(nameee):
+    data=request.get_json()
+    fname=data.get("fname")
+    frate=data.get("frating")
+    cursor.execute("INSERT INTO friends (`name`,`Friend Name`,`Friend Rating`) VALUES (%s, %s, %s)",(nameee, fname, frate))
+    conn.commit() 
+    return jsonify({"message": "Friend inserted successfully"}), 201
 
 if(__name__=="__main__"):
     app.run(debug=True)
