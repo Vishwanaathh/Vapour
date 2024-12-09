@@ -53,6 +53,14 @@ export default function Profile() {
                 
             </div>
             <button onClick={()=>{router.push("/home")} }className="text-white bg-green-700 w-24 h-12 mt-16">Go to Home</button>
+            <br>
+            </br>
+            <button
+                    onClick={() => router.push('/friendpage')}
+                    className="bg-green-600 text-white px-4 py-2 mt-10"
+                >
+                    GO TO FRIEND
+                </button>
         </div>
     );
 }

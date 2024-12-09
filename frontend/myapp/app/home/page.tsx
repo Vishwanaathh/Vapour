@@ -121,6 +121,13 @@ export default function Home() {
             </ul>
             <div>{!toggle&&<button className="bg-green-700 text-white w-24 h-10" onClick={()=>setToggle(!toggle)}>GO BACK</button>}</div>
             <button onClick={()=>{router.push("/profile")} }className="text-white bg-green-700 w-24 h-12 mt-16 ">Go to Profile</button>
+            <br></br>
+            <button
+                    onClick={() => router.push('/friendpage')}
+                    className="bg-green-600 text-white px-4 py-2 mt-10"
+                >
+                    GO TO FRIEND
+                </button><br></br>
             <p>Parashuram Production 2024</p>
         </div>
     );
